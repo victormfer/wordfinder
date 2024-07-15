@@ -1,4 +1,4 @@
-# Word finder challege
+# Word finder challenge
 
 This repository contains 3 projects for resolving Word Finder Challenge
 
