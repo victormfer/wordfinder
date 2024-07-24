@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using Microsoft.Diagnostics.Tracing.Parsers;
 using WordSearchBsn;
 
 namespace WordSearchBenchmark

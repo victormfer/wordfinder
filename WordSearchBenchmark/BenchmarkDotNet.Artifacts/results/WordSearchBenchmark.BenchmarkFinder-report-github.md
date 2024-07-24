@@ -8,6 +8,6 @@ Intel Core i7-1065G7 CPU 1.30GHz, 1 CPU, 8 logical and 4 physical cores
 
 
 ```
-| Method         | Mean     | Error   | StdDev  | Gen0    | Allocated |
-|--------------- |---------:|--------:|--------:|--------:|----------:|
-| BenchFindLarge | 100.8 μs | 1.17 μs | 0.97 μs | 23.1934 |  94.77 KB |
+| Method         | Mean     | Error    | StdDev   | Gen0    | Allocated |
+|--------------- |---------:|---------:|---------:|--------:|----------:|
+| BenchFindLarge | 95.03 μs | 1.591 μs | 1.768 μs | 23.1934 |   94.8 KB |

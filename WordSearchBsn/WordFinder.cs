@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace WordSearchBsn
 {
@@ -12,7 +10,6 @@ namespace WordSearchBsn
         public const string k_MATRIX_WORDS_ARE_NOT_EQUALS = "The Matrix words are not equal";
         public const string k_MATRIX_LENS_IS_WRONG = "The Matrix size is wrong";
 
-        private int _rows;
         private int _cols;
         private IEnumerable<string> _matrix; // HORIZONTALS
         private IEnumerable<string> _verticals;
@@ -32,7 +29,6 @@ namespace WordSearchBsn
             if (row_count > MAX_CHARS || col_count > MAX_CHARS)
                 throw new ArgumentException(k_MATRIX_LENS_IS_WRONG);
 
-            _rows = row_count;
             _cols = col_count;
             _matrix = matrix;
             _verticals = GetVerticals();
@@ -51,27 +47,17 @@ namespace WordSearchBsn
                     dicSearchVertical = FindFlat(wordstream, _verticals);
                 }
             );
-
-            //IMPROVEMENT FOR PERFORMING SEARCH ITERATIONS
-            Dictionary<string, int> dicPivot = dicSearchHorizontal;
-            Dictionary<string, int> dicUnion = dicSearchVertical;
-
-            if (dicSearchHorizontal.Count > dicSearchVertical.Count)
-            {
-                dicPivot = dicSearchVertical;
-                dicUnion = dicSearchHorizontal;
-            }
-                
+            
             //UNION BOTH
-            foreach (var value in dicPivot)
+            foreach (var value in dicSearchVertical)
             {
-                if (dicUnion.ContainsKey(value.Key))
-                    dicUnion[value.Key] += value.Value;
+                if (dicSearchHorizontal.ContainsKey(value.Key))
+                    dicSearchHorizontal[value.Key] += value.Value;
                 else
-                    dicUnion.Add(value.Key,value.Value);
+                    dicSearchHorizontal.Add(value.Key,value.Value);
             }
 
-            return dicUnion.OrderByDescending(x => x.Value)
+            return dicSearchHorizontal.OrderByDescending(x => x.Value)
                 .Select(x => x.Key)
                 .Take(TOP_SERACH);
                 
@@ -103,14 +89,14 @@ namespace WordSearchBsn
         }
         private IEnumerable<string> GetVerticals()
         {
-            var verticalDnas = new List<string>();
+            var verticals = new List<string>();
             
             for (int i = 0; i < _cols; i++)
             {
-                var verticalString = string.Join("", _matrix.Select(dna => dna[i]));
-                verticalDnas.Add(verticalString);
+                var verticalString = string.Join("", _matrix.Select(word => word[i]));
+                verticals.Add(verticalString);
             }
-            return verticalDnas;
+            return verticals;
         }
     }
 }
